@@ -1,9 +1,9 @@
-import createSlice from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 const initialState = {
   curSymbol: "x",
   board: new Array(9).fill(""),
-  winner: undefinded,
-  btn: undefinded,
+  winner: null,
   stopGame: false,
   move: 0,
 };
@@ -11,14 +11,14 @@ const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    isDraw() {
+    isDraw(state) {
       state.move += 1;
       if (state.move === 9 && state.stopGame === false && !state.winner) {
         state.stopGame = true;
         alert("Remis!");
       }
     },
-    check() {
+    check(state) {
       function char(a, b, c) {
         return !!a && a === b && b === c && a === c;
       }
@@ -39,18 +39,17 @@ const gameSlice = createSlice({
       )
         state.winner = state.curSymbol;
     },
-    changeSymbol() {
+    changeSymbol(state) {
       state.curSymbol === "x"
         ? (state.curSymbol = "o")
         : (state.curSymbol = "x");
     },
-    writeMove(id) {
-      const symbol = state.curSymbol;
-      state.board[id - 1] = state.curSymbol;
-      return symbol;
+    writeMove(state, action) {
+      // const symbol = state.curSymbol;
+      state.board[action.payload - 1] = state.curSymbol;
     },
 
-    isWin() {
+    isWin(state) {
       if (state.winner) {
         alert(`Wygrywa ${state.winner}`);
         state.stopGame = true;
@@ -58,9 +57,8 @@ const gameSlice = createSlice({
     },
   },
 });
-const store = configureStore({
+export const store = configureStore({
   reducer: gameSlice.reducer,
 });
 
 export const gameActions = gameSlice.actions;
-export default store;

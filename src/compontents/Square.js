@@ -1,4 +1,8 @@
 function Square(props) {
-  return <button>{props.id}</button>;
+  return (
+    <button onClick={props.click}>
+      {props.clicked ? props.char : props.id}
+    </button>
+  );
 }
 export default Square;
