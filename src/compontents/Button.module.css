@@ -1,0 +1,15 @@
+.start,
+.reset {
+  margin-top: 30px;
+  padding: 20px;
+  border: none;
+  /* width: 80px; */
+  border-radius: 10px;
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.start:hover,
+.reset:hover {
+  background-color: grey;
+}
